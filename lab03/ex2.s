@@ -26,11 +26,11 @@ main:
     la s1, source
     la s2, dest
 loop:
-    slli s3, t0, 2
-    add t1, s1, s3
-    lw t2, 0(t1)
+    slli s3, t0, 2  # t0 used for, t0 is increased by 1 and shif 2 btye makes it 4
+    add t1, s1, s3  # t1 is index k, this instruction and the above one makes k++
+    lw t2, 0(t1)    # t2 = source[k]
     beq t2, x0, exit
-    add a0, x0, t2
+    add a0, x0, t2  # a0 is used to pass arguments to the square
     addi sp, sp, -8
     sw t0, 0(sp)
     sw t2, 4(sp)
@@ -38,10 +38,10 @@ loop:
     lw t0, 0(sp)
     lw t2, 4(sp)
     addi sp, sp, 8
-    add t2, x0, a0
+    add t2, x0, a0  # t2 is the return value
     add t3, s2, s3
-    sw t2, 0(t3)
-    add s0, s0, t2
+    sw t2, 0(t3)    # dest[k] = fun(sorce[k])
+    add s0, s0, t2  # s0 is the sum
     addi t0, t0, 1
     jal x0, loop
 square:

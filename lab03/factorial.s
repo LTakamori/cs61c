@@ -9,7 +9,7 @@ main:
     lw a0, 0(t0)
     jal ra, factorial
 
-    addi a1, a0, 0
+    addi a1, a0, 0  # return value is in a0
     addi a0, x0, 1
     ecall # Print Result
 
@@ -21,4 +21,13 @@ main:
     ecall # Exit
 
 factorial:
-    # YOUR CODE HERE
+    addi t0, x0, 0
+    addi t1, x0, 1
+loop:
+    addi t0, t0, 1
+    mul t1, t1, t0
+    ble a0, t0, exit
+    j loop
+exit:
+    addi a0, t1, 0
+    jr ra
